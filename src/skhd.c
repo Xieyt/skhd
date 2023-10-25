@@ -62,7 +62,7 @@ extern CGError CGSRegisterNotifyProc(void *handler, uint32_t type, void *context
 
 #define MAJOR  0
 #define MINOR  3
-#define PATCH  8
+#define PATCH  9
 
 static struct carbon_event carbon;
 static struct event_tap event_tap;
@@ -459,7 +459,7 @@ static GLOBAL_CONNECTION_CALLBACK(connection_handler)
 int main(int argc, char **argv)
 {
     if (getuid() == 0 || geteuid() == 0) {
-        error("skhd: running as root is not allowed! abort..\n");
+        require("skhd: running as root is not allowed! abort..\n");
     }
 
     if (parse_arguments(argc, argv)) {
@@ -475,7 +475,7 @@ int main(int argc, char **argv)
     }
 
     if (!check_privileges()) {
-        error("skhd: must be run with accessibility access! abort..\n");
+        require("skhd: must be run with accessibility access! abort..\n");
     }
 
     if (!initialize_keycode_map()) {
